@@ -8,21 +8,21 @@
 						<router-link
 							class="nav-link"
 							:to="{ name: 'profissionais', params: { tipo: 'enfermeiros' } }"
-							>Enfermeiros ({{ $store.getters.totalEnfermeiros }})</router-link
+							>Enfermeiros ({{ totalPorTipo("enfermeiros") }})</router-link
 						>
 					</li>
 					<li class="nav-item">
 						<router-link
 							class="nav-link"
 							:to="{ name: 'profissionais', params: { tipo: 'socorristas' } }"
-							>Socorristas</router-link
+							>Socorristas ({{ totalPorTipo("socorristas") }})</router-link
 						>
 					</li>
 					<li class="nav-item">
 						<router-link
 							class="nav-link"
 							:to="{ name: 'profissionais', params: { tipo: 'medicos' } }"
-							>Médicos</router-link
+							>Médicos ({{ totalPorTipo("medicos") }})</router-link
 						>
 					</li>
 				</ul>
@@ -37,7 +37,13 @@
 </template>
 
 <script>
+	import { mapGetters } from "vuex";
 	export default {
 		name: "Profissionais",
+		computed: {
+			...mapGetters({
+				totalPorTipo: "totalPorTipo",
+			}),
+		},
 	};
 </script>

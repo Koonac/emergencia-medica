@@ -8,14 +8,14 @@
 						<router-link
 							class="nav-link"
 							:to="{ name: 'equipamentos', params: { tipo: 'carros' } }"
-							>Carros</router-link
+							>Carros ({{ totalPorTipo("carros") }})</router-link
 						>
 					</li>
 					<li class="nav-item">
 						<router-link
 							class="nav-link"
 							:to="{ name: 'equipamentos', params: { tipo: 'telefones' } }"
-							>Telefones</router-link
+							>Telefones ({{ totalPorTipo("telefones") }})</router-link
 						>
 					</li>
 					<li class="nav-item">
@@ -25,7 +25,9 @@
 								name: 'equipamentos',
 								params: { tipo: 'kits-de-reanimacao' },
 							}"
-							>Kits de Reanimação</router-link
+							>Kits de Reanimação ({{
+								totalPorTipo("kits-de-reanimacao")
+							}})</router-link
 						>
 					</li>
 				</ul>
@@ -40,7 +42,14 @@
 </template>
 
 <script>
+	import { mapGetters } from "vuex";
+
 	export default {
 		name: "Equipamentos",
+		computed: {
+			...mapGetters({
+				totalPorTipo: "totalPorTipo",
+			}),
+		},
 	};
 </script>
