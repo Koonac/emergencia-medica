@@ -66,10 +66,25 @@ export default new Vuex.Store({
 		setEnfermeiros: (state, payload) => (state.enfermeiros = payload),
 		setSocorristas: (state, payload) => (state.socorristas = payload),
 		setMedicos: (state, payload) => (state.medicos = payload),
-		setCarros: (state, { carros }) => (state.equipamentos.carros = carros),
-		setTelefones: (state, { telefones }) =>
-			(state.equipamentos.telefones = telefones),
-		setKitsDeReanimacao: (state, { kitsDeReanimacao }) =>
-			(state.equipamentos.kitsDeReanimacao = kitsDeReanimacao),
+		setCarros: (state, payload) => (state.equipamentos.carros = payload),
+		setTelefones: (state, payload) => (state.equipamentos.telefones = payload),
+		setKitsDeReanimacao: (state, payload) =>
+			(state.equipamentos.kitsDeReanimacao = payload),
+	},
+	actions: {
+		adicionarEquipametos(context, { carros, telefones, kitsDeReanimacao }) {
+			/* Processamento assíncrono (Ex:. validação, consulta, permissão) */
+			context.commit("setCarros", carros);
+
+			setTimeout(() => {
+				context.commit("setTelefones", telefones);
+			}, 1000);
+
+			/* Processamento assíncrono (Ex:. validação, consulta, permissão) */
+			// context.commit("setTelefones", telefones);
+
+			/* Processamento assíncrono (Ex:. validação, consulta, permissão) */
+			context.commit("setKitsDeReanimacao", kitsDeReanimacao);
+		},
 	},
 });

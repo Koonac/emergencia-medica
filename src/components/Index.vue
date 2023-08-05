@@ -73,9 +73,7 @@
 			fetch("http://localhost:3000/equipamentos")
 				.then((response) => response.json())
 				.then((dados) => {
-					this.setCarros(dados);
-					this.setTelefones(dados);
-					this.setKitsDeReanimacao(dados);
+					this.$store.dispatch("adicionarEquipametos", dados);
 				});
 		},
 	};
