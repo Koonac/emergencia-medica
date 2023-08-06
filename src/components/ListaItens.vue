@@ -8,6 +8,11 @@
 				<option value="noite">Noite</option>
 			</select>
 		</div>
+		<div class="row" v-if="itens.length <= 0">
+			<div class="col text-center">
+				<p>Nenhum registro encontrado.</p>
+			</div>
+		</div>
 		<item
 			v-for="(item, index) in itens"
 			:key="index"

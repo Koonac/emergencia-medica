@@ -33,7 +33,7 @@
 </template>
 
 <script>
-	import { mapMutations } from "vuex";
+	import { mapMutations, mapActions } from "vuex";
 	import ConfiguracaoEquipe from "./ConfiguracaoEquipe.vue";
 	import Equipamentos from "./Equipamentos.vue";
 	import Equipes from "./Equipes.vue";
@@ -52,29 +52,22 @@
 				setEnfermeiros: "setEnfermeiros",
 				setSocorristas: "setSocorristas",
 				setMedicos: "setMedicos",
-				setCarros: "setCarros",
-				setTelefones: "setTelefones",
-				setKitsDeReanimacao: "setKitsDeReanimacao",
+			}),
+			...mapActions({
+				fetchEquipamentos: "fetchEquipamentos",
+				fetchProfissionais: "fetchProfissionais",
 			}),
 		},
 		props: {
 			msg: String,
 		},
 		created() {
-			fetch("http://localhost:3000/enfermeiros")
-				.then((response) => response.json())
-				.then((dados) => this.setEnfermeiros(dados));
-			fetch("http://localhost:3000/socorristas")
-				.then((response) => response.json())
-				.then((dados) => this.setSocorristas(dados));
-			fetch("http://localhost:3000/medicos")
-				.then((response) => response.json())
-				.then((dados) => this.setMedicos(dados));
-			fetch("http://localhost:3000/equipamentos")
-				.then((response) => response.json())
-				.then((dados) => {
-					this.$store.dispatch("adicionarEquipametos", dados);
-				});
+			this.fetchEquipamentos({
+				carros: true,
+				telefones: true,
+				kitsDeReanimacao: true,
+			});
+			this.fetchProfissionais("fetchProfissionais");
 		},
 	};
 </script>

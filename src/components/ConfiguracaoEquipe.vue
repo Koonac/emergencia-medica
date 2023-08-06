@@ -9,6 +9,12 @@
 		</div>
 		<div class="row">
 			<div class="col-8">
+				<input
+					class="form-control"
+					placeholder="Descrição da equipe"
+					type="text"
+					v-model="descricaoEquipe"
+				/>
 				<p>Enfermeiro: {{ enfermeiro }}</p>
 				<p>Socorrista: {{ socorrista }}</p>
 				<p>Médico: {{ medico }}</p>
@@ -21,13 +27,19 @@
 					<div class="col">
 						<img
 							class="img-fluid"
-							:src="require('@/assets/ambulancias/indefinida.png')"
+							:src="require(`@/assets/ambulancias/` + imgAmbulancia)"
 						/>
 					</div>
 				</div>
 				<div class="row mt-3">
 					<div class="col">
-						<button type="button" class="btn btn-primary">Montar equipe</button>
+						<button
+							type="button"
+							class="btn btn-primary"
+							@click="postAndSetEquipe(descricaoEquipe)"
+						>
+							Montar equipe
+						</button>
 					</div>
 				</div>
 			</div>
@@ -36,12 +48,13 @@
 </template>
 
 <script>
-	import { mapState } from "vuex";
+	import { mapState, mapActions } from "vuex";
 
 	export default {
 		name: "ConfiguracaoEquipe",
 		data: () => ({
 			tituloComponente: "Configuração da equipe",
+			descricaoEquipe: "",
 		}),
 		// computed: mapState(["equipe"]),
 		// computed: mapState({
@@ -59,11 +72,20 @@
 					return `${state.titulo} - ${this.tituloComponente}`;
 				},
 			}),
-
 			corTitulo() {
 				let testeLogico = true;
 				return testeLogico ? "text-danger" : "text-primary";
 			},
+			imgAmbulancia() {
+				if (this.kitDeReanimacao) return "uti.png";
+				if (this.carro) return "simples.png";
+				return "indefinida.png";
+			},
+		},
+		methods: {
+			...mapActions({
+				postAndSetEquipe: "postAndSetEquipe",
+			}),
 		},
 	};
 </script>
